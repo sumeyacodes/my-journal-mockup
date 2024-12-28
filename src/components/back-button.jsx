@@ -1,10 +1,12 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from 'lucide-react';
 import Link from "next/link";
 
 export function BackButton() {
   return (
-    <nav className="mb-4">
+    <nav className="">
 
       <Link href="/" passHref>
         <Button>

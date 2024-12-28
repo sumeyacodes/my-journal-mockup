@@ -1,36 +1,47 @@
+"use client"
 
-import { Card } from "@/components/ui/card"
+import { Card, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { CardDescription, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { ArrowRight } from 'lucide-react'
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { Notebook, ArrowRight } from 'lucide-react'
 
 export function Login() {
-
   return (
-    <Card className="text-center w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-4xl shadow-lg">
+    <Card className="flex flex-col items-center justify-around w-full md:max-w-md lg:max-w-lg xl:max-w-xl shadow-lg p-6">
 
-      <CardHeader className="space-y-4 pb-8">
+      <CardHeader className="w-full">
+
         <CardTitle className="text-2xl">Hello Journal 👋</CardTitle>
-
-        <CardDescription className="text-md">
-          Welcome to your personal journaling app
+        <CardDescription className="">
+          Welcome to your personal journaling app.
         </CardDescription>
+
       </CardHeader>
 
-      <CardContent className="pb-8">
+      <CardContent className="w-full">
 
-        <Link href="/journal" className="w-full block">
+        <Input 
+          className="py-6 w-full"
+          placeholder="Enter fake name"
+        />
+        
+      </CardContent>
+
+      <CardFooter className="w-full mt-4">
+
+        <Link href="/journal" className="w-full">
           <Button 
-            className="w-full p-6 text-md flex items-center justify-center gap-2 group"
-            variant="default"
+            className="w-full p-6 text-lg"
           >
-            Login
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <span>Login</span>
+            <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </Link>
         
-      </CardContent>
+      </CardFooter>
 
     </Card>
   )
