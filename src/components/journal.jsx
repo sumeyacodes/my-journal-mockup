@@ -1,41 +1,115 @@
 "use client"
+
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Send } from 'lucide-react';
+import { Send } from "lucide-react";
+import { format } from "date-fns";
+import { Label } from "@/components/ui/label";
 
 export function Journal() {
+  const [journalEntries, setJournalEntries] = useState([]);
+  const [newJournalEntry, setNewJournalEntry] = useState("");
+
+
+  useEffect(() => {
+    if (journalEntries.length > 0) {
+      console.log("A new journal entry was added!");
+    }
+  }, [journalEntries]);
+  const handleSubmitEntry = (e) => {
+    e.preventDefault();
+    const entryContent = newJournalEntry.trim();
+
+    if (entryContent) {
+      const now = new Date();
+      const entry = {
+        id: now,
+        content: entryContent,
+        timestamp: format(now.getTime(), "h:mm a"),
+        date: format(now, " EEE, dd MMMM, yyyy")
+      };
+
+      setJournalEntries((prev) => [...prev, entry]);
+      setNewJournalEntry("");
+    }
+  };
+
+  const entriesByDate = journalEntries.reduce((groups, entry) => {
+    if (!groups[entry.date]) {
+      groups[entry.date] = [];
+    }
+    groups[entry.date].push(entry);
+    return groups;
+  }, {});
+
   return (
-
-    <Card className="w-full md:max-w-4xl lg:max-w-5xl shadow-lg">
-
-      <CardHeader className="border-b ">
-
-        <CardTitle className="flex items-center gap-3">
-          <span className="text-3xl">📝</span>
-          <h1 className="text-base sm:text-lg md:text-xl lg:text-xl">My Personal Journaling App</h1>
+    <Card className="w-full max-w-6xl mx-auto shadow-lg flex flex-col h-[85vh]">
+      <CardHeader className="border-b">
+        <CardTitle className="flex items-center justify-center gap-3 text-xl">
+          <span className="text-4xl" aria-hidden="true">📝</span>
+          My Journal
         </CardTitle>
-
       </CardHeader>
 
-      <CardContent className="flex-grow p-6 text-center min-h-[300px] sm:min-h-[360px] md:min-h-[380px] lg:min-h-[400px]">
-        <span className="text-muted-foreground text-sm sm:text-lg">Start writing your first journal entry...</span>
+      <CardContent className="flex-grow overflow-y-auto p-4 space-y-6">
+        {journalEntries.length === 0 ? (
+          <div className="h-full flex items-center justify-center text-muted-foreground">
+            <p>Begin your journaling journey...</p>
+          </div>
+        ) : (
+          Object.entries(entriesByDate).map(([date, entries]) => (
+            <section key={date} className="space-y-4">
+              <h2 className="text-center font-medium text-neutral-600">
+                {date}
+              </h2>
+              <div className="space-y-4">
+                {entries.map((entry) => (
+                  <article key={entry.id} className="bg-primary/5 rounded-lg p-4">
+                    <div className="whitespace-pre-wrap text-neutral-800">
+                      {entry.content}
+                    </div>
+                    <footer className="mt-2 flex justify-end">
+                      <time className="text-sm text-neutral-500">
+                        {entry.timestamp}
+                      </time>
+                    </footer>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))
+        )}
       </CardContent>
 
-      <CardFooter className="border-t p-4 flex flex-col w-full gap-4">
+      <CardFooter className="border-t p-4">
+        <form onSubmit={handleSubmitEntry} className="w-full space-y-3">
           <Textarea
-            placeholder="Write your thoughts here..."
-            className=" min-h-[150px] sm:min-h-[220px] md:min-h-[240px] lg:min-[250px] text-sm sm:text-lg  border border-neutral-400 overflow-hidden p-4"
+            value={newJournalEntry}
+            onChange={(e) => setNewJournalEntry(e.target.value)}
+            placeholder="Write your thoughts..."
+            className="min-h-[120px] max-h-[400px] resize-y border-neutral-300"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+                handleSubmitEntry(e);
+              }
+            }}
           />
-            <Button 
+          <div className="flex justify-between items-center mx-1">
+            <Label className="text-sm text-neutral-500">
+              Press '⌘ Cmd' + Enter to save
+            </Label>
+            <Button
               type="submit"
               size="icon"
-              className="ml-auto"
+              disabled={!newJournalEntry.trim()}
             >
-              <Send className="h-4 w-4 sm:h-3 " />
+              <Send className="h-4 w-4" />
             </Button>
+          </div>
+        </form>
       </CardFooter>
-
     </Card>
   );
 }
