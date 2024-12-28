@@ -21,7 +21,7 @@ export function Journal() {
     "Any prominent emotions or thoughts that stood out to you today? 🧐",
     "3. Checking in with your body – how is it feeling? Does it need any support?🧘‍♀️",
     "4. Have you come across anything cool or interesting lately that you're excited about? 👀", 
-    "5. Brain dump - is anything else you want to note down? 🧠",
+    "5. Brain dump - anything else you want to note down? 🧠",
   ];
 
   const scrollToBottom = () => {
