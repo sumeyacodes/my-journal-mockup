@@ -28,7 +28,7 @@ export function Journal() {
         id: now,
         content: entryContent,
         timestamp: format(now.getTime(), "h:mm a"),
-        date: format(now, " EEE, dd MMMM, yyyy")
+        date: format(now, " EEEE dd MMMM, yyyy")
       };
 
       setJournalEntries((prev) => [...prev, entry]);
@@ -47,16 +47,17 @@ export function Journal() {
   return (
     <Card className="w-full max-w-6xl mx-auto shadow-lg flex flex-col h-[85vh]">
       <CardHeader className="border-b">
-        <CardTitle className="flex items-center justify-center gap-3 text-xl">
-          <span className="text-4xl" aria-hidden="true">📝</span>
-          My Journal
+        <CardTitle className="flex items-center justify-center gap-3">
+          <span className="text-4xl">📝</span>
+          <h1 className="text-xl md:text-2xl lg:text-2xl xl:text-2xl">My Journal App</h1>
+
         </CardTitle>
       </CardHeader>
 
       <CardContent className="flex-grow overflow-y-auto p-4 space-y-6">
         {journalEntries.length === 0 ? (
           <div className="h-full flex items-center justify-center text-muted-foreground">
-            <p>Begin your journaling journey...</p>
+            <p>Hey there! What’s on your mind today?</p>
           </div>
         ) : (
           Object.entries(entriesByDate).map(([date, entries]) => (
@@ -97,9 +98,9 @@ export function Journal() {
             }}
           />
           <div className="flex justify-between items-center mx-1">
-            <Label className="text-sm text-neutral-500">
-              Press '⌘ Cmd' + Enter to save
-            </Label>
+          <Label className="text-sm text-neutral-500">
+            Press '⌘ Cmd' or 'Ctrl' + Enter to Submit
+          </Label>
             <Button
               type="submit"
               size="icon"
