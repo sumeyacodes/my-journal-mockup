@@ -18,9 +18,9 @@ export function Journal() {
 
   const prompts = [
     "1. Quick vibe check - what's the general mood been like today? 🤔",
-    "Any prominent emotions or thoughts that stood out to you today? 🧐",
+    "2. Any prominent emotions or thoughts that stood out to you today? 🧐",
     "3. Checking in with your body – how is it feeling? Does it need any support?🧘‍♀️",
-    "4. Have you come across anything cool or interesting lately that you're excited about? 👀", 
+    "4. Have you come across anything cool or interesting lately? 👀", 
     "5. Brain dump - anything else you want to note down? 🧠",
   ];
 
