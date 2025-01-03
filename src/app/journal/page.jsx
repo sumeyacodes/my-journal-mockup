@@ -1,5 +1,5 @@
 import { BackButton } from "@/components/back-button";
-import { Journal } from "@/components/journal";
+import { JournalCard } from "@/components/journal-card";
 
 export default function JournalApp() {
   return (
@@ -9,7 +9,7 @@ export default function JournalApp() {
         <BackButton />
       </header>
       <div className="flex flex-1 justify-center items-center p-5">
-        <Journal />
+        <JournalCard />
       </div>
 
     </main>
